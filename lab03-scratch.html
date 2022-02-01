@@ -220,9 +220,30 @@ elmhurst</code></pre>
             iqr = IQR(gift_aid),
   )</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Plot the distribution of <code>family_income</code> and calculate the appropriate summary statistics. Describe the distribution of <code>family_income</code> (shape, center, and spread, outliers) using the plot and appropriate summary statistics.</p></li>
-<li><p>Create a scatterplot to display the relationship between <code>gift_aid</code> (response variable) and <code>family_income</code> (predictor variable). Use the scatterplot to describe the relationship between the two variables. Be sure the scatterplot includes informative axis labels and title.</p></li>
+<li>Plot the distribution of <code>family_income</code> and calculate the appropriate summary statistics. Describe the distribution of <code>family_income</code> (shape, center, and spread, outliers) using the plot and appropriate summary statistics.</li>
 </ol>
+<p>The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of $63-$74. There is one obvious outlier that is a datapoint of a family who makes well over $200,000 in annual income.</p>
+<pre class="r"><code>ggplot(data = elmhurst, aes(x = family_income)) + 
+  geom_histogram() + 
+  labs(x = &quot;Family Income (in thousands of dollars)&quot;, 
+       y = &quot;# of Observations&quot;, 
+       title = &quot;Elmhurst Family Income Distribution&quot;)
+
+elmhurst %&gt;%
+  summarise(mean = mean(family_income),
+            median = median(family_income),
+            std_dev = sd(family_income),
+            iqr = IQR(family_income),
+  )</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a scatterplot to display the relationship between <code>gift_aid</code> (response variable) and <code>family_income</code> (predictor variable). Use the scatterplot to describe the relationship between the two variables. Be sure the scatterplot includes informative axis labels and title.</li>
+</ol>
+<p>There appears to be a linear correlation between the response and the predictor variable. It would be logical to conclude that a line with a negative slope would best fit this correlation.</p>
+<pre class="r"><code>ggplot(data = elmhurst) + 
+  geom_point(mapping = aes(y = gift_aid, x = family_income)) +
+  labs(y = &quot;Gift Aid (in thousands of dollars)&quot;,
+       x = &quot;Family Income (in thousands of dollars)&quot;,
+       title = &quot;Elmhurst: correlation between gift aid and family income&quot;)</code></pre>
 </div>
 <div id="simple-linear-regression" class="section level2">
 <h2>Simple Linear Regression</h2>

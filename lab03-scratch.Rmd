@@ -63,7 +63,36 @@ elmhurst %>%
 
 3. Plot the distribution of `family_income` and calculate the appropriate summary statistics. Describe the distribution of `family_income` (shape, center, and spread, outliers) using the plot and appropriate summary statistics.  
 
+The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of $63-$74. There is one obvious outlier that is a datapoint of a family who makes well over $200,000 in annual income.
+
+```{r eval=F}
+ggplot(data = elmhurst, aes(x = family_income)) + 
+  geom_histogram() + 
+  labs(x = "Family Income (in thousands of dollars)", 
+       y = "# of Observations", 
+       title = "Elmhurst Family Income Distribution")
+
+elmhurst %>%
+  summarise(mean = mean(family_income),
+            median = median(family_income),
+            std_dev = sd(family_income),
+            iqr = IQR(family_income),
+  )
+```
+
+
 4. Create a scatterplot to display the relationship between `gift_aid` (response variable) and `family_income` (predictor variable). Use the scatterplot to describe the relationship between the two variables. Be sure the scatterplot includes informative axis labels and title.
+
+There appears to be a linear correlation between the response and the predictor variable. It would be logical to conclude that a line with a negative slope would best fit this correlation.
+
+```{r eval=F}
+ggplot(data = elmhurst) + 
+  geom_point(mapping = aes(y = gift_aid, x = family_income)) +
+  labs(y = "Gift Aid (in thousands of dollars)",
+       x = "Family Income (in thousands of dollars)",
+       title = "Elmhurst: correlation between gift aid and family income")
+```
+
 
 ## Simple Linear Regression
 
