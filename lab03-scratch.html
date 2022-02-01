@@ -250,8 +250,8 @@ elmhurst %&gt;%
 <ol start="5" style="list-style-type: decimal">
 <li>Use the <code>lm</code> function to fit a simple linear regression model using <code>family_income</code> to explain variation in <code>gift_aid</code>. Complete the code below to assign your model a name, and use the <code>tidy</code> and <code>kable</code> functions to neatly display the model output. <em>Replace X and Y with the appropriate variable names.</em></li>
 </ol>
-<pre class="r"><code>_____ &lt;- lm(Y ~ X, data = _____)
-tidy(_____) %&gt;% # output model
+<pre class="r"><code>model &lt;- lm(gift_aid ~ family_income, data = elmhurst)
+tidy(model) %&gt;% # output model
   kable(digits = 3) # format model output</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Interpret the slope in the context of the problem.</p></li>
@@ -288,6 +288,7 @@ tidy(_____) %&gt;% # output model
 <li><p>Suppose a high school senior is considering Elmhurst College, and she would like to use your regression model to estimate how much gift aid she can expect to receive. Her family income is $90,000. Based on your model, about how much gift aid should she expect to receive? Show the code or calculations you use to get the prediction.</p></li>
 <li><p>Another high school senior is considering Elmhurst College, and her family income is about $310,000. Do you think it would be wise to use your model calculate the predicted gift aid for this student? Briefly explain your reasoning.</p></li>
 </ol>
+<p>It would not be wise to use the model because the student’s family would be a major outlier in the data. The college would likely not use a model to calculate this family’s aid due to their special circumstances.</p>
 <p><em>You’re done and ready to submit your work! Knit, commit, and push all remaining changes. You can use the commit message “Done with Lab 2!”, and make sure you have pushed all the files to GitHub (your Git pane in RStudio should be empty) and that <u>all</u> documents are updated in your repo on GitHub. Then submit the assignment on Gradescope following the instructions below.</em></p>
 </div>
 </div>

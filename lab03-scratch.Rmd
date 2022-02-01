@@ -99,8 +99,8 @@ ggplot(data = elmhurst) +
 5. Use the `lm` function to fit a simple linear regression model using `family_income` to explain variation in `gift_aid`. Complete the code below to assign your model a name, and use the `tidy` and `kable` functions to neatly display the model output. *Replace X and Y with the appropriate variable names.*
 
 ```{r eval=FALSE}
-_____ <- lm(Y ~ X, data = _____)
-tidy(_____) %>% # output model
+model <- lm(gift_aid ~ family_income, data = elmhurst)
+tidy(model) %>% # output model
   kable(digits = 3) # format model output
 ```
 
@@ -147,5 +147,7 @@ Based on this, is the linearity condition is satisfied? Briefly explain your rea
 14. Suppose a high school senior is considering Elmhurst College, and she would like to use your regression model to estimate how much gift aid she can expect to receive. Her family income is $90,000. Based on your model, about how much gift aid should she expect to receive? Show the code or calculations you use to get the prediction. 
 
 15. Another high school senior is considering Elmhurst College, and her family income is about $310,000. Do you think it would be wise to use your model calculate the predicted gift aid for this student?  Briefly explain your reasoning. 
+
+It would not be wise to use the model because the student's family would be a major outlier in the data. The college would likely not use a model to calculate this family's aid due to their special circumstances.
 
 *You're done and ready to submit your work! Knit, commit, and push all remaining changes. You can use the commit message "Done with Lab 2!", and make sure you have pushed all the files to GitHub (your Git pane in RStudio should be empty) and that <u>all</u> documents are updated in your repo on GitHub. Then submit the assignment on Gradescope following the instructions below.*
