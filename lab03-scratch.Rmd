@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 # Data: Gift aid at Elmhurst College
@@ -16,7 +17,9 @@ In today's lab, we will analyze the `elmhurst` dataset in the openintro package.
 You can load the data from loading the openintro package, and then running the following command: 
 
 ```{r eval = F}
+library(openintro)
 data(elmhurst)
+elmhurst
 ```
 
 The `elmhurst` dataset contains the following variables: 
@@ -33,7 +36,30 @@ The `elmhurst` dataset contains the following variables:
 
 1. Plot a histogram to examine the distribution of `gift_aid`. What is the approximate shape of the distribution? Also note if there are any outliers in the dataset.
 
+The distribution has a similar shape to a normal distribution. There are no extreme outliers in this dataset.
+
+```{r eval=F}
+ggplot(data = elmhurst, aes(x = gift_aid)) + 
+  geom_histogram() + 
+  labs(x = "Gift Aid (in thousands of dollars)", 
+       y = "# of Observations", 
+       title = "Elmhurst Gift aid Distribution")
+```
+
+
 2. To better understand the distribution of `gift_aid`, we would like calculate measures of center and spread of the distribution. Use the `summarise` function to calculate the appropriate measures of center (mean or median) and spread (standard deviation or IQR) based on the shape of the distribution from Exercise 1. Show the code and output, and state the measures of center and spread in your narrative. *Be sure to report your conclusions for this exercise and the remainder of the lab in dollars.*
+
+There is a center of approximately $20 and a spread of $5-$8 in this  dataset.
+
+```{r eval=F}
+elmhurst %>%
+  summarise(mean = mean(gift_aid),
+            median = median(gift_aid),
+            std_dev = sd(gift_aid),
+            iqr = IQR(gift_aid),
+  )
+```
+
 
 3. Plot the distribution of `family_income` and calculate the appropriate summary statistics. Describe the distribution of `family_income` (shape, center, and spread, outliers) using the plot and appropriate summary statistics.  
 
