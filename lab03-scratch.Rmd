@@ -2,7 +2,7 @@
 title: "Lab 3"
 author: "Dylan Scoble"
 date: "1/26/2022"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
