@@ -231,7 +231,7 @@ elmhurst</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>To better understand the distribution of <code>gift_aid</code>, we would like calculate measures of center and spread of the distribution. Use the <code>summarise</code> function to calculate the appropriate measures of center (mean or median) and spread (standard deviation or IQR) based on the shape of the distribution from Exercise 1. Show the code and output, and state the measures of center and spread in your narrative. <em>Be sure to report your conclusions for this exercise and the remainder of the lab in dollars.</em></li>
 </ol>
-<p>There is a center of approximately $20 and a spread of $5-$8 in this dataset.</p>
+<p>There is a center of approximately $20 and a spread of $5 - $8 in this dataset.</p>
 <pre class="r"><code>elmhurst %&gt;%
   summarise(mean = mean(gift_aid),
             median = median(gift_aid),
@@ -245,7 +245,7 @@ elmhurst</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Plot the distribution of <code>family_income</code> and calculate the appropriate summary statistics. Describe the distribution of <code>family_income</code> (shape, center, and spread, outliers) using the plot and appropriate summary statistics.</li>
 </ol>
-<p>The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of $63-$74. There is one obvious outlier that is a datapoint of a family who makes well over $200,000 in annual income.</p>
+<p>The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of $63 - $74. There is one obvious outlier that is a datapoint of a family who makes well over $200,000 in annual income.</p>
 <pre class="r"><code>ggplot(data = elmhurst, aes(x = family_income)) + 
   geom_histogram() + 
   labs(x = &quot;Family Income (in thousands of dollars)&quot;, 
@@ -337,13 +337,13 @@ tidy(model) %&gt;% # output model
 </ul></li>
 </ol>
 <p>Based on this, is the linearity condition is satisfied? Briefly explain your reasoning.</p>
-<p>There is a discernable shape in this plot of the linear variety. Therefore, the linear model does not adequately describe the relationship between gift aid and family income.</p>
+<p>There is no discernable shape in this plot. Therefore, the linear model adequately describes the relationship between gift aid and family income.</p>
 <ol start="10" style="list-style-type: decimal">
 <li><p>Recall that when we fit a regression model, we assume for any given value of <span class="math inline">\(x\)</span>, the <span class="math inline">\(y\)</span> values follow the Normal distribution with mean <span class="math inline">\(\beta_0 + \beta_1 x\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. We will look at two sets of plots to check that this assumption holds.</p>
 <p>We begin by checking the constant variance assumption, i.e that the variance of <span class="math inline">\(y\)</span> is approximately equal for each value of <span class="math inline">\(x\)</span>. To check this, we will use the scatterplot of the residuals versus the predictor variable <span class="math inline">\(x\)</span>. Ideally, as we move from left to right, the spread of the <span class="math inline">\(y\)</span>’s will be approximately equal, i.e. there is no “fan” pattern.</p>
 <p>Using the scatterplot from Exercise 8 , is the constant variance assumption satisfied? Briefly explain your reasoning. <em>Note: You don’t need to know the value of <span class="math inline">\(\sigma^2\)</span> to answer this question.</em></p></li>
 </ol>
-<p>The constant variance assumption is not satisfied because the residuals scatterplot does not have a slope equal to 0. Because the slope is positive, there is a fan pattern.</p>
+<p>The constant variance assumption is not satisfied because the residuals scatterplot does not have a slope equal to 0. Because the slope is positive, there is a fan pattern, not a cloud pattern.</p>
 <ol start="11" style="list-style-type: decimal">
 <li><p>Next, we will assess with Normality assumption, i.e. that the distribution of the <span class="math inline">\(y\)</span> values is Normal at every value of <span class="math inline">\(x\)</span>. In practice, it is impossible to check the distribution of <span class="math inline">\(y\)</span> at every possible value of <span class="math inline">\(x\)</span>, so we can check whether the assumption is satisfied by looking at the overall distribution of the residuals. The assumption is satisfied if the distribution of residuals is approximately Normal, i.e. unimodal and symmetric.</p>
 <p>Make a histogram of the residuals. Based on the histogram, is the Normality assumption satisfied? Briefly explain your reasoning.</p></li>
@@ -364,9 +364,23 @@ tidy(model) %&gt;% # output model
 <div id="using-the-model" class="section level2">
 <h2>Using the Model</h2>
 <ol start="13" style="list-style-type: decimal">
-<li><p>Calculate <span class="math inline">\(R^2\)</span> for this model and interpret it in the context of the data.</p></li>
-<li><p>Suppose a high school senior is considering Elmhurst College, and she would like to use your regression model to estimate how much gift aid she can expect to receive. Her family income is $90,000. Based on your model, about how much gift aid should she expect to receive? Show the code or calculations you use to get the prediction.</p></li>
-<li><p>Another high school senior is considering Elmhurst College, and her family income is about $310,000. Do you think it would be wise to use your model calculate the predicted gift aid for this student? Briefly explain your reasoning.</p></li>
+<li>Calculate <span class="math inline">\(R^2\)</span> for this model and interpret it in the context of the data.</li>
+</ol>
+<pre class="r"><code>rsquared &lt;- summary(model)$r.squared
+rsquared</code></pre>
+<pre><code>## [1] 0.2485582</code></pre>
+<p>An <span class="math inline">\(R^2\)</span> value of 0.2486 means that in this linear model, 24.86% of the data fits the model to a reasonable degree. In the context of the data and our model, 24.86% of the families in our dataset receive a reasonable amount of gift aid in relation to their family income.</p>
+<ol start="14" style="list-style-type: decimal">
+<li>Suppose a high school senior is considering Elmhurst College, and she would like to use your regression model to estimate how much gift aid she can expect to receive. Her family income is $90,000. Based on your model, about how much gift aid should she expect to receive? Show the code or calculations you use to get the prediction.</li>
+</ol>
+<p>Based on this model, a family with an income of $90,000 is expected to receive $20,442.88. I used the predict() function to calculate this value, shown below.</p>
+<pre class="r"><code>newdataset &lt;-data.frame(family_income=c(90))
+prediction &lt;- predict(model, newdata=newdataset)
+prediction</code></pre>
+<pre><code>##        1 
+## 20.44288</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Another high school senior is considering Elmhurst College, and her family income is about $310,000. Do you think it would be wise to use your model calculate the predicted gift aid for this student? Briefly explain your reasoning.</li>
 </ol>
 <p>It would not be wise to use the model because the student’s family would be a major outlier in the data. The college would likely not use a model to calculate this family’s aid due to their special circumstances.</p>
 <p><em>You’re done and ready to submit your work! Knit, commit, and push all remaining changes. You can use the commit message “Done with Lab 2!”, and make sure you have pushed all the files to GitHub (your Git pane in RStudio should be empty) and that <u>all</u> documents are updated in your repo on GitHub. Then submit the assignment on Gradescope following the instructions below.</em></p>

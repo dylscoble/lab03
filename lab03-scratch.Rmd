@@ -53,7 +53,7 @@ ggplot(data = elmhurst, aes(x = gift_aid)) +
 
 2. To better understand the distribution of `gift_aid`, we would like calculate measures of center and spread of the distribution. Use the `summarise` function to calculate the appropriate measures of center (mean or median) and spread (standard deviation or IQR) based on the shape of the distribution from Exercise 1. Show the code and output, and state the measures of center and spread in your narrative. *Be sure to report your conclusions for this exercise and the remainder of the lab in dollars.*
 
-There is a center of approximately $20 and a spread of $5-$8 in this  dataset.
+There is a center of approximately \$20 and a spread of \$5 - \$8 in this  dataset.
 
 ```{r eval=TRUE}
 elmhurst %>%
@@ -67,7 +67,7 @@ elmhurst %>%
 
 3. Plot the distribution of `family_income` and calculate the appropriate summary statistics. Describe the distribution of `family_income` (shape, center, and spread, outliers) using the plot and appropriate summary statistics.  
 
-The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of $63-$74. There is one obvious outlier that is a datapoint of a family who makes well over $200,000 in annual income.
+The distribution of family income is a relatively normal distribution with a center of $101.77 and a spread of \$63 - \$74. There is one obvious outlier that is a datapoint of a family who makes well over \$200,000 in annual income.
 
 ```{r eval=TRUE}
 ggplot(data = elmhurst, aes(x = family_income)) + 
@@ -110,7 +110,7 @@ tidy(model) %>% # output model
 
 6. Interpret the slope in the context of the problem.
 
-For each $1000 increase in family income, our model predicts a decrease in gift aid of about $43.
+For each \$1000 increase in family income, our model predicts a decrease in gift aid of about \$43.
 
 7. When we fit a linear regression model, we make assumptions about the underlying relationship between the response and predictor variables. In practice, we can check that the assumptions hold by analyzing the residuals. Over the next few questions, we will examine plots of the residuals to determine if the assumptions are met.
 
@@ -141,7 +141,7 @@ ggplot(data=elmhurst, mapping=aes(x=gift_aid, y=resid)) +
 
 Based on this, is the linearity condition is satisfied? Briefly explain your reasoning. 
 
-There is a discernable shape in this plot of the linear variety. Therefore,  the linear model does not adequately describe the relationship between gift aid and family income.
+There is no discernable shape in this plot. Therefore,  the linear model adequately describes the relationship between gift aid and family income.
 
 10. Recall that when we fit a regression model, we assume for any given value of $x$, the $y$ values follow the Normal distribution with mean $\beta_0 + \beta_1 x$ and variance $\sigma^2$. We will look at two sets of plots to check that this assumption holds.
 
@@ -149,7 +149,7 @@ There is a discernable shape in this plot of the linear variety. Therefore,  the
 
     Using the scatterplot from Exercise 8 , is the constant variance assumption satisfied? Briefly explain your reasoning. *Note: You don't need to know the value of $\sigma^2$ to answer this question.*
 
-The constant variance assumption is not satisfied because the residuals scatterplot does not have a slope equal to 0. Because the  slope is positive, there is a fan pattern.
+The constant variance assumption is not satisfied because the residuals scatterplot does not have a slope equal to 0. Because the  slope is positive, there is a fan pattern, not a cloud pattern.
 
 11. Next, we will assess with Normality assumption, i.e. that the distribution of the $y$ values is Normal at every value of $x$. In practice, it is impossible to check the distribution of $y$ at every possible value of $x$, so we can check whether the assumption is satisfied by looking at the overall distribution of the residuals. The assumption is satisfied if the distribution of residuals is approximately Normal, i.e. unimodal and symmetric.
 
@@ -173,8 +173,23 @@ The independence assumption is satisfied because each family in the dataset is c
 
 13. Calculate $R^2$ for this model and interpret it in the context of the data.
 
+```{r}
+rsquared <- summary(model)$r.squared
+rsquared
+```
+
+An $R^2$ value of 0.2486 means that in this linear model, 24.86% of the data fits the model to a reasonable degree. In the context of the data and our model, 24.86% of the families in our dataset receive a reasonable amount of gift aid in relation to their family income.
 
 14. Suppose a high school senior is considering Elmhurst College, and she would like to use your regression model to estimate how much gift aid she can expect to receive. Her family income is $90,000. Based on your model, about how much gift aid should she expect to receive? Show the code or calculations you use to get the prediction. 
+
+Based on this model, a family with an income of \$90,000 is expected to receive \$20,442.88. I used the predict() function to calculate this value, shown below.
+
+```{r}
+newdataset <-data.frame(family_income=c(90))
+prediction <- predict(model, newdata=newdataset)
+prediction
+```
+
 
 15. Another high school senior is considering Elmhurst College, and her family income is about $310,000. Do you think it would be wise to use your model calculate the predicted gift aid for this student?  Briefly explain your reasoning. 
 
